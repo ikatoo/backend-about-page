@@ -2,27 +2,34 @@ import PostgresAboutPage from "./PostgresAboutPage";
 import postgres from "./postgres";
 
 describe("Postgres Database Suite Test", () => {
-  it("should insert about page data", async () => {
-    const { create } = new PostgresAboutPage();
-    const mock = {
-      title: "Titulo About page",
-      description: "Descrição about page",
-      avatarALT: "avatar alt",
-      avatarURL: "avatar url",
-    };
-    await create(mock);
+  const mock = {
+    title: "Titulo About page",
+    description: "Descrição about page",
+    avatarALT: "avatar alt",
+    avatarURL: "avatar url",
+  };
 
-    postgres.any("select * from about_page").then((result) => {
-      expect(result).toHaveLength(1)
-      const aboutPage = result[0]
-      expect(mock).toEqual({
-        title: aboutPage.title,
-        description: aboutPage.description,
-        skills: ["node", "git"],
-        avatarALT: aboutPage.avatar_alt,
-        avatarURL: aboutPage.avatar_url,
-      });
+  const repository = new PostgresAboutPage();
+
+  afterAll(async () => {
+    await postgres.$pool.end();
+  });
+
+  it("should insert about page data", async () => {
+    const { create } = repository;
+    await expect(create(mock)).resolves.not.toThrow();
+  });
+
+  it("should get about page data", async () => {
+    const { get } = repository;
+
+    await expect(get()).resolves.toEqual({
+      title: mock.title,
+      description: mock.description,
+      avatar_url: mock.avatarURL,
+      avatar_alt: mock.avatarALT,
     });
+  });
 
     await postgres.$pool.end();
   });
