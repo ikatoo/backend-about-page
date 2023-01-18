@@ -16,14 +16,14 @@ describe("Postgres Database Suite Test", () => {
   });
 
   it("should insert about page data", async () => {
-    const { create } = repository;
-    await expect(create(mock)).resolves.not.toThrow();
+    const { createAboutPage } = repository;
+    await expect(createAboutPage(mock)).resolves.not.toThrow();
   });
 
   it("should get about page data", async () => {
-    const { get } = repository;
+    const { getAboutPage } = repository;
 
-    await expect(get()).resolves.toEqual({
+    await expect(getAboutPage()).resolves.toEqual({
       title: mock.title,
       description: mock.description,
       avatar_url: mock.avatarURL,
@@ -32,7 +32,7 @@ describe("Postgres Database Suite Test", () => {
   });
 
   it("should update about page data", async () => {
-    const { update, get } = repository;
+    const { updateAboutPage, getAboutPage } = repository;
 
     const newMock = {
       title: "New About page",
@@ -41,8 +41,8 @@ describe("Postgres Database Suite Test", () => {
       avatarURL: "new avatar url",
     };
 
-    await expect(update(newMock)).resolves.not.toThrow();
-    await expect(get()).resolves.toEqual({
+    await expect(updateAboutPage(newMock)).resolves.not.toThrow();
+    await expect(getAboutPage()).resolves.toEqual({
       title: newMock.title,
       description: newMock.description,
       avatar_alt: newMock.avatarALT,
