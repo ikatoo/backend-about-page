@@ -6,9 +6,11 @@
   "author": "Milton Carlos Katoo <mckatoo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest src",
-    "test:watch": "jest src --watchAll",
-    "test:coverage": "jest src --coverage"
+    "build": "tsc --project tsconfig-build.json",
+    "typecheck": "tsc --project tsconfig-typecheck.json",
+    "test": "jest ./src",
+    "test:watch": "jest ./src --watchAll",
+    "test:coverage": "jest ./src --coverage"
   },
   "devDependencies": {
     "@types/jest": "29.2.5",
