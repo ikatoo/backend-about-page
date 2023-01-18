@@ -17,4 +17,5 @@ export default {
   POSTGRES_HOST: env("POSTGRES_HOST"),
   POSTGRES_PORT: parseInt(env("POSTGRES_PORT")),
   POSTGRES_DB: env("POSTGRES_DB"),
+  PORT: env("PORT"),
 };
