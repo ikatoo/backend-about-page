@@ -2,6 +2,8 @@ import { IAboutPage } from "@/domain/IAboutPage";
 import postgres from "./postgres";
 import { AboutPageProps } from "@/domain/AboutPage";
 
+type AboutPageWithoutSkills = Omit<AboutPageProps, 'skills'>
+
 export default class PostgresAboutPage implements IAboutPage {
   async get(): Promise<AboutPageProps> {
     const aboutPage = await postgres.oneOrNone("select * from about_page");
@@ -9,7 +11,7 @@ export default class PostgresAboutPage implements IAboutPage {
     return aboutPage;
   }
 
-  async create(page: Omit<AboutPageProps, 'skills'>): Promise<void> {
+  async create(page: AboutPageWithoutSkills): Promise<void> {
     try {
       await postgres.none("delete from about_page")
       await postgres.none(
@@ -21,7 +23,7 @@ export default class PostgresAboutPage implements IAboutPage {
     }
   }
 
-  async update(page: AboutPageProps): Promise<void> {
+  async update(page: AboutPageWithoutSkills): Promise<void> {
     try {
       await postgres.none(
         "update about_page set title = $1, description = $2, avatar_url = $3, avatar_alt = $4",
