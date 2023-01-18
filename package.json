@@ -10,7 +10,9 @@
     "typecheck": "tsc --project tsconfig-typecheck.json",
     "test": "jest ./src",
     "test:watch": "jest ./src --watchAll",
-    "test:coverage": "jest ./src --coverage"
+    "test:coverage": "jest ./src --coverage",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down"
   },
   "devDependencies": {
     "@types/jest": "29.2.5",
