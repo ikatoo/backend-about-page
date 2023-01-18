@@ -12,6 +12,7 @@ const env = (key: string) => {
 };
 
 export default {
+  NODE_ENV: env('NODE_ENV'),
   POSTGRES_USER: env("POSTGRES_USER"),
   POSTGRES_PASSWORD: env("POSTGRES_PASSWORD"),
   POSTGRES_HOST: env("POSTGRES_HOST"),
