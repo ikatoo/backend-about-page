@@ -49,4 +49,11 @@ describe("Postgres Database Suite Test", () => {
       avatar_url: newMock.avatarURL,
     });
   });
+
+  it("should delete about page data", async () => {
+    const { deleteAboutPage, getAboutPage } = repository;
+
+    await expect(deleteAboutPage()).resolves.not.toThrow();
+    await expect(getAboutPage()).resolves.toBeNull()
+  });
 });
