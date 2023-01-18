@@ -1,4 +1,4 @@
-import AboutPage from './AboutPage'
+import AboutPage from "./AboutPage";
 
 describe("About Page Class", () => {
   it("should create new instance", () => {
