@@ -31,6 +31,22 @@ describe("Postgres Database Suite Test", () => {
     });
   });
 
-    await postgres.$pool.end();
+  it("should update about page data", async () => {
+    const { update, get } = repository;
+
+    const newMock = {
+      title: "New About page",
+      description: "Descrição NEW about page",
+      avatarALT: "new avatar alt",
+      avatarURL: "new avatar url",
+    };
+
+    await expect(update(newMock)).resolves.not.toThrow();
+    await expect(get()).resolves.toEqual({
+      title: newMock.title,
+      description: newMock.description,
+      avatar_alt: newMock.avatarALT,
+      avatar_url: newMock.avatarURL,
+    });
   });
 });
