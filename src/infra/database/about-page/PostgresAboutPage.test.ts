@@ -33,13 +33,8 @@ describe("Postgres About Page Repository", () => {
       avatarURL: "new avatar url",
     };
 
-    await expect(updateAboutPage(newMock)).resolves.not.toThrow();
-    await expect(getAboutPage()).resolves.toEqual({
-      title: newMock.title,
-      description: newMock.description,
-      avatar_alt: newMock.avatarALT,
-      avatar_url: newMock.avatarURL,
-    });
+    await expect(updateAboutPage(newMock)).resolves.not.toThrowError();
+    await expect(getAboutPage()).resolves.toEqual(newMock);
   });
 
   test("should delete about page data", async () => {

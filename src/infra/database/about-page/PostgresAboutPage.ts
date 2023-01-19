@@ -6,10 +6,19 @@ import postgres from "../postgres";
 type AboutPageWithoutSkills = Omit<AboutPageProps, "skills">;
 
 export default class PostgresAboutPage implements IAboutPage {
-  async getAboutPage(): Promise<AboutPageProps> {
+  async getAboutPage(): Promise<AboutPageProps | null> {
     const aboutPage = await postgres.oneOrNone("select * from about_page");
 
-    return aboutPage;
+    if(!aboutPage) return null
+
+    const mappedAboutPage:AboutPageWithoutSkills = {
+      title: aboutPage.title,
+      description: aboutPage.description,
+      avatarURL: aboutPage.avatar_url,
+      avatarALT: aboutPage.avatar_alt,
+    }
+
+    return mappedAboutPage;
   }
 
   async createAboutPage(page: AboutPageWithoutSkills): Promise<void> {
