@@ -1,7 +1,8 @@
+import { describe, expect, test } from "vitest";
 import Skill from "./Skill";
 
 describe("Skill Class", () => {
-  it("should create new instance", () => {
+  test("should create new instance", () => {
     const mockData = {
       title: "nodejs",
     };
