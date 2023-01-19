@@ -1,8 +1,9 @@
-import { IAboutPage } from "@/domain/IAboutPage";
-import postgres from "./postgres";
-import { AboutPageProps } from "@/domain/AboutPage";
+import { AboutPageProps } from "@/domain/about-page/AboutPage";
+import { IAboutPage } from "@/domain/about-page/IAboutPage";
+import postgres from "../postgres";
 
-type AboutPageWithoutSkills = Omit<AboutPageProps, 'skills'>
+
+type AboutPageWithoutSkills = Omit<AboutPageProps, "skills">;
 
 export default class PostgresAboutPage implements IAboutPage {
   async getAboutPage(): Promise<AboutPageProps> {
@@ -13,7 +14,7 @@ export default class PostgresAboutPage implements IAboutPage {
 
   async createAboutPage(page: AboutPageWithoutSkills): Promise<void> {
     try {
-      await postgres.none("delete from about_page")
+      await postgres.none("delete from about_page");
       await postgres.none(
         "insert into about_page (title,description,avatar_url,avatar_alt) values ($1,$2,$3,$4)",
         [page.title, page.description, page.avatarURL, page.avatarALT]
