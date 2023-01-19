@@ -1,5 +1,5 @@
 import PostgresAboutPage from "./PostgresAboutPage";
-import postgres from "./postgres";
+import postgres from "../postgres";
 
 describe("Postgres Database Suite Test", () => {
   const mock = {

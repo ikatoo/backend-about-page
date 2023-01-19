@@ -5,7 +5,6 @@ describe("About Page Class", () => {
     const mockData = {
       title: "Titulo da pagina",
       description: "Descrição da pagina",
-      skills: ["nodejs", "git"],
     };
     const aboutPage = new AboutPage(mockData);
 

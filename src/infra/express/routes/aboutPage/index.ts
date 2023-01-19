@@ -1,7 +1,7 @@
-import { AboutPageProps } from "@/domain/AboutPage";
+import { AboutPageProps } from "@/domain/about-page/AboutPage";
 import { Request, Response, Router } from "express";
 
-export type AboutPageResponse = AboutPageProps
+export type AboutPageResponse = AboutPageProps;
 //  & { skills: SkillWithID[] };
 
 const aboutPageRoute = Router();
