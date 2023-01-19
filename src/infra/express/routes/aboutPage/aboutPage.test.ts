@@ -1,14 +1,11 @@
+import { describe, test } from "vitest";
 
 describe.skip("Express - About Page", () => {
-  it("should create about page", async () => {
-  });
+  test("should create about page", async () => {});
 
-  it("should get about page data", async () => {
-  });
+  test("should get about page data", async () => {});
 
-  it("should update about page", async () => {
-  });
+  test("should update about page", async () => {});
 
-  it("should delete about page", async () => {
-  });
+  test("should delete about page", async () => {});
 });

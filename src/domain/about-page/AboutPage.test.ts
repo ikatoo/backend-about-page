@@ -1,7 +1,8 @@
+import { describe, expect, test } from "vitest";
 import AboutPage from "./AboutPage";
 
 describe("About Page Class", () => {
-  it("should create new instance", () => {
+  test("should create new instance", () => {
     const mockData = {
       title: "Titulo da pagina",
       description: "Descrição da pagina",

@@ -1,7 +1,8 @@
-import PostgresAboutPage from "./PostgresAboutPage";
-import postgres from "../postgres";
+import { describe, expect, test } from "vitest";
 
-describe("Postgres Database Suite Test", () => {
+import PostgresAboutPage from "./PostgresAboutPage";
+
+describe("Postgres About Page Repository", () => {
   const mock = {
     title: "Titulo About page",
     description: "Descrição about page",
@@ -11,27 +12,18 @@ describe("Postgres Database Suite Test", () => {
 
   const repository = new PostgresAboutPage();
 
-  afterAll(async () => {
-    await postgres.$pool.end();
-  });
-
-  it("should insert about page data", async () => {
+  test("should insert about page data", async () => {
     const { createAboutPage } = repository;
-    await expect(createAboutPage(mock)).resolves.not.toThrow();
+    await expect(createAboutPage(mock)).resolves.not.toThrowError();
   });
 
-  it("should get about page data", async () => {
+  test("should get about page data", async () => {
     const { getAboutPage } = repository;
 
-    await expect(getAboutPage()).resolves.toEqual({
-      title: mock.title,
-      description: mock.description,
-      avatar_url: mock.avatarURL,
-      avatar_alt: mock.avatarALT,
-    });
+    await expect(getAboutPage()).resolves.toEqual(mock);
   });
 
-  it("should update about page data", async () => {
+  test("should update about page data", async () => {
     const { updateAboutPage, getAboutPage } = repository;
 
     const newMock = {
@@ -50,10 +42,10 @@ describe("Postgres Database Suite Test", () => {
     });
   });
 
-  it("should delete about page data", async () => {
+  test("should delete about page data", async () => {
     const { deleteAboutPage, getAboutPage } = repository;
 
-    await expect(deleteAboutPage()).resolves.not.toThrow();
-    await expect(getAboutPage()).resolves.toBeNull()
+    await expect(deleteAboutPage()).resolves.not.toThrowError();
+    await expect(getAboutPage()).resolves.toBeNull();
   });
 });

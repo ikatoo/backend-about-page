@@ -6,25 +6,27 @@
   "author": "Milton Carlos Katoo <mckatoo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc --project tsconfig-build.json",
+    "start": "node dist/infra/express/index.js",
+    "dev": "tsx watch src/infra/express/index.ts",
+    "build": "tsup src",
     "typecheck": "tsc --project tsconfig-typecheck.json",
-    "test": "jest ./src",
-    "test:watch": "jest ./src --watchAll",
-    "test:coverage": "jest ./src --coverage",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down"
   },
   "devDependencies": {
     "@types/cors": "2.8.13",
     "@types/express": "4.17.15",
-    "@types/jest": "29.2.5",
     "@types/node": "18.11.18",
     "@types/supertest": "2.0.12",
-    "jest": "29.3.1",
     "supertest": "6.3.3",
-    "ts-jest": "29.0.5",
-    "ts-node": "10.9.1",
-    "typescript": "4.9.4"
+    "tsup": "6.5.0",
+    "tsx": "3.12.2",
+    "typescript": "4.9.4",
+    "vite-tsconfig-paths": "4.0.3",
+    "vitest": "0.27.2"
   },
   "dependencies": {
     "cors": "2.8.5",

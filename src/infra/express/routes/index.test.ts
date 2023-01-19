@@ -1,8 +1,9 @@
-import app from '../app'
-import request from 'supertest'
+import request from 'supertest';
+import { describe, expect, test } from "vitest";
+import app from '../app';
 
 describe('Express Test', () => {
-  it('should index ok', async () => {
+  test('should index ok', async () => {
     const response = await request(app).get('/').send()
 
     expect(response.status).toBe(200)
