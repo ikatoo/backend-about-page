@@ -1,5 +1,6 @@
 import env from "@/env";
 import pgPromise from "pg-promise";
+import { IClient } from "pg-promise/typescript/pg-subset";
 
 const pgp = pgPromise({});
 const postgres = pgp({
@@ -9,18 +10,19 @@ const postgres = pgp({
   user: env.POSTGRES_USER,
   password: env.POSTGRES_PASSWORD,
   max: 30,
+  // allowExitOnIdle: env.NODE_ENV.includes('prod') ? false : true,
+  allowExitOnIdle: true,
 });
 
 export const createDB = async () => {
   await postgres.none(`create table if not exists about_page (
-    title varchar(100) NOT NULL, 
+    title varchar(100) NOT NULL UNIQUE, 
     description text NOT NULL,
     avatar_url text,
     avatar_alt text
   )`);
   await postgres.none(`create table if not exists skills (
-    id varchar(100) NOT NULL UNIQUE PRIMARY KEY, 
-    title varchar(100) NOT NULL
+    title varchar(100) NOT NULL UNIQUE
   )`);
 };
 
