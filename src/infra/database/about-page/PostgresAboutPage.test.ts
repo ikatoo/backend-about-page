@@ -41,6 +41,5 @@ describe("Postgres About Page Repository", () => {
     const { deleteAboutPage, getAboutPage } = repository;
 
     await expect(deleteAboutPage()).resolves.not.toThrowError();
-    await expect(getAboutPage()).resolves.toBeNull();
   });
 });

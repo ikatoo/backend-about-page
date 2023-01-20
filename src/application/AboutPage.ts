@@ -18,21 +18,23 @@ export default class AboutPage implements IAboutPageApplication {
       avatarURL: page.avatarURL,
       avatarALT: page.avatarALT,
     });
-    page.skills.forEach(async (skill) => {
-      await this.skillsRepository.createSkill(skill);
-    });
+    for (let index = 0; index < page.skills.length; index++) {
+      await this.skillsRepository.createSkill(page.skills[index]);
+    }
   }
 
-  async getAboutPage(): Promise<AboutPageWithSkills> {
+  async getAboutPage(): Promise<AboutPageWithSkills | undefined> {
     const aboutPage = await this.aboutPageRepository.getAboutPage();
+    if (aboutPage === undefined) return;
+
     const skills = await this.skillsRepository.getAllSkills();
 
     const mappedAboutPage: AboutPageWithSkills = {
-      title: aboutPage?.title ?? '',
-      description: aboutPage?.description ?? '',
-      skills: skills.sort(),
+      title: aboutPage?.title ?? "",
+      description: aboutPage?.description ?? "",
+      skills: skills,
       avatarURL: aboutPage?.avatarURL,
-      avatarALT: aboutPage?.avatarALT
+      avatarALT: aboutPage?.avatarALT,
     };
 
     return mappedAboutPage;
