@@ -23,8 +23,9 @@ aboutPageRoute.post("/about", async (req: Request, res: Response) => {
 });
 
 aboutPageRoute.put("/about", async (req: Request, res: Response) => {
+  await useCase.deleteAboutPage();
   const aboutPage = req.body;
-  // await updateAboutPage(aboutPage);
+  await useCase.createAboutPage(aboutPage);
 
   res.status(201).send();
 });
