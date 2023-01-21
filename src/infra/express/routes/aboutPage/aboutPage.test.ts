@@ -34,16 +34,16 @@ describe("Express - About Page", () => {
     expect(skills).toStrictEqual(mock.skills);
   });
 
-  test.skip("should get about page data", async () => {
-    const exist = await postgres.manyOrNone("select * from about-page");
+  test("should get about page data", async () => {
+    const exist = await postgres.manyOrNone("select * from about_page");
     !exist &&
       (await postgres.none(
-        "insert into about-page (title,description, avatar_url, avatar_alt values ($1,$2,$3,$4)",
+        "insert into about_page (title,description, avatar_url, avatar_alt values ($1,$2,$3,$4)",
         [mock.title, mock.description, mock.avatarURL, mock.avatarALT]
       ));
     const response = await request(app).get("/about").send();
     expect(response.status).toBe(200);
-    expect(response.body).toBe(mock);
+    expect(response.body).toStrictEqual(mock);
   });
 
   test.skip("should update about page", async () => {
@@ -52,5 +52,13 @@ describe("Express - About Page", () => {
     expect(response.body).toBe(mock);
   });
 
-  test.skip("should delete about page", async () => {});
+  test("should delete about page", async () => {
+    const response = await request(app).delete("/about").send();
+    const exist =
+      (await postgres.oneOrNone("select * from about_page")) ||
+      (await postgres.oneOrNone("select * from skills"));
+
+    expect(response.status).toBe(204);
+    expect(exist).toBeNull()
+  });
 });

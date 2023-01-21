@@ -30,10 +30,15 @@ aboutPageRoute.put("/about", async (req: Request, res: Response) => {
 });
 
 aboutPageRoute.get("/about", async (_req: Request, res: Response) => {
-  // const aboutPage = await getAboutPage();
+  const aboutPage = await useCase.getAboutPage();
 
-  // res.status(200).json(aboutPageResponse);
-  res.status(200).json({});
+  res.status(200).json(aboutPage);
+});
+
+aboutPageRoute.delete("/about", async (_req: Request, res: Response) => {
+  await useCase.deleteAboutPage();
+
+  res.status(204).send();
 });
 
 export default aboutPageRoute;
