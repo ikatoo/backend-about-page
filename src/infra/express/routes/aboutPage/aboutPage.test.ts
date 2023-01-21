@@ -46,10 +46,33 @@ describe("Express - About Page", () => {
     expect(response.body).toStrictEqual(mock);
   });
 
-  test.skip("should update about page", async () => {
-    const response = await request(app).get("/about").send();
-    expect(response.status).toBe(200);
-    expect(response.body).toBe(mock);
+  test("should update about page", async () => {
+    const newAboutPage: AboutPageWithSkills = {
+      title: "new title - updated",
+      description: "new description - updated",
+      skills: [
+        { title: "docker" },
+        { title: "postgres" },
+        { title: "reactjs" },
+        { title: "vitest" },
+      ],
+      avatarURL: "new avatar url",
+      avatarALT: "new alt",
+    };
+    const response = await request(app).put("/about").send(newAboutPage);
+    const aboutPage = await postgres.one("select * from about_page");
+    const skills = await postgres.manyOrNone(
+      "select * from skills order by title"
+    );
+
+    expect(response.status).toBe(201);
+    expect(aboutPage).toStrictEqual({
+      title: newAboutPage.title,
+      description: newAboutPage.description,
+      avatar_url: newAboutPage.avatarURL,
+      avatar_alt: newAboutPage.avatarALT,
+    });
+    expect(skills).toStrictEqual(newAboutPage.skills);
   });
 
   test("should delete about page", async () => {
