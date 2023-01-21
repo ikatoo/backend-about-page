@@ -1,14 +1,23 @@
+import AboutPage from "@/application/AboutPage";
+import { AboutPageWithSkills } from "@/application/IAboutPageApplication";
 import { AboutPageProps } from "@/domain/about-page/AboutPage";
+import { SkillProps } from "@/domain/skill/Skill";
+import PostgresAboutPage from "@/infra/database/about-page/PostgresAboutPage";
+import PostgresSkills from "@/infra/database/skills/PostgresSkills";
 import { Request, Response, Router } from "express";
 
-export type AboutPageResponse = AboutPageProps;
-//  & { skills: SkillWithID[] };
+export type AboutPageResponse = AboutPageProps & { skills?: SkillProps[] };
 
 const aboutPageRoute = Router();
 
+const aboutPageRepository = new PostgresAboutPage();
+const skillsRepository = new PostgresSkills();
+
+const useCase = new AboutPage(aboutPageRepository, skillsRepository);
+
 aboutPageRoute.post("/about", async (req: Request, res: Response) => {
-  const aboutPage: AboutPageResponse = req.body;
-  // await createAboutPage(aboutPage);
+  const aboutPage: AboutPageWithSkills = req.body;
+  await useCase.createAboutPage(aboutPage);
 
   res.status(201).send();
 });
