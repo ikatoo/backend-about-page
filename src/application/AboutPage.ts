@@ -42,6 +42,7 @@ export default class AboutPage implements IAboutPageApplication {
 
   async deleteAboutPage(): Promise<void> {
     await this.aboutPageRepository.deleteAboutPage();
+    await this.skillsRepository.deleteAllSkills();
   }
 
   async deleteSkill(title: string): Promise<void> {
