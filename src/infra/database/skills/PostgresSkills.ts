@@ -20,4 +20,8 @@ export default class PostgresSkills implements ISkill {
   async deleteSkill(title: string): Promise<void> {
     await postgres.none("delete from skills where title = $1", [title]);
   }
+
+  async deleteAllSkills(): Promise<void> {
+    await postgres.none("delete from skills");
+  }
 }

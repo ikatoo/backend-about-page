@@ -15,9 +15,9 @@ describe("Express - About Page", () => {
   };
 
   test("should create about page", async () => {
-    await postgres.none('delete from about_page')
-    await postgres.none('delete from skills')
-    
+    await postgres.none("delete from about_page");
+    await postgres.none("delete from skills");
+
     const response = await request(app).post("/about").send(mock);
     const aboutPage = await postgres.one("select * from about_page");
     const skills = await postgres.manyOrNone(

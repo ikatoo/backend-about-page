@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, test } from "vitest";
+
 import postgres from "../postgres";
 import PostgresSkills from "./PostgresSkills";
 
@@ -31,5 +32,9 @@ describe("Postgres Skills Repository", () => {
 
   test("should delete a skill data", async () => {
     await expect(repository.deleteSkill("mysql")).resolves.not.toThrowError();
+  });
+
+  test("should delete all skills", async () => {
+    await expect(repository.deleteAllSkills()).resolves.not.toThrowError();
   });
 });
