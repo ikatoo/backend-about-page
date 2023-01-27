@@ -15,8 +15,8 @@ export default class AboutPage implements IAboutPageApplication {
     this.aboutPageRepository.createAboutPage({
       title: page.title,
       description: page.description,
-      avatarURL: page.avatarURL,
-      avatarALT: page.avatarALT,
+      illustrationURL: page.illustrationURL,
+      illustrationALT: page.illustrationALT,
     });
     for (let index = 0; index < page.skills.length; index++) {
       await this.skillsRepository.createSkill(page.skills[index]);
@@ -33,8 +33,8 @@ export default class AboutPage implements IAboutPageApplication {
       title: aboutPage?.title ?? "",
       description: aboutPage?.description ?? "",
       skills: skills,
-      avatarURL: aboutPage?.avatarURL,
-      avatarALT: aboutPage?.avatarALT,
+      illustrationURL: aboutPage?.illustrationURL,
+      illustrationALT: aboutPage?.illustrationALT,
     };
 
     return mappedAboutPage;
