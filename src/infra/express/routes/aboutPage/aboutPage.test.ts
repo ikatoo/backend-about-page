@@ -60,7 +60,7 @@ describe("Express - About Page", () => {
       "select * from skills order by title"
     );
 
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(204);
     expect(aboutPage).toStrictEqual({
       title: newAboutPage.title,
       description: newAboutPage.description,

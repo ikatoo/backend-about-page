@@ -27,7 +27,7 @@ aboutPageRoute.put("/about", async (req: Request, res: Response) => {
   const aboutPage = req.body;
   await useCase.createAboutPage(aboutPage);
 
-  res.status(201).send();
+  res.status(204).send();
 });
 
 aboutPageRoute.get("/about", async (_req: Request, res: Response) => {
