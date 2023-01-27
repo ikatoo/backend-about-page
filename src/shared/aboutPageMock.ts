@@ -7,6 +7,6 @@ export const aboutPageMock = {
     { title: "tdd" },
     { title: "vitest" },
   ],
-  avatarURL: "url of the avatar",
-  avatarALT: "this is a avatar",
+  illustrationURL: "url of the illustration",
+  illustrationALT: "this is a illustration",
 };

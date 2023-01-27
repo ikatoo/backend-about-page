@@ -1,20 +1,20 @@
 export type AboutPageProps = {
   title: string;
   description: string;
-  avatarURL?: string | undefined;
-  avatarALT?: string | undefined;
+  illustrationURL?: string | undefined;
+  illustrationALT?: string | undefined;
 };
 
 export default class AboutPage {
   readonly title: string;
   readonly description: string;
-  readonly avatarURL?: string | undefined;
-  readonly avatarALT?: string | undefined;
+  readonly illustrationURL?: string | undefined;
+  readonly illustrationALT?: string | undefined;
 
   constructor(page: AboutPageProps) {
     this.title = page.title;
     this.description = page.description;
-    if (page.avatarURL) this.avatarURL = page.avatarURL;
-    if (page.avatarALT) this.avatarALT = page.avatarALT;
+    if (page.illustrationURL) this.illustrationURL = page.illustrationURL;
+    if (page.illustrationALT) this.illustrationALT = page.illustrationALT;
   }
 }

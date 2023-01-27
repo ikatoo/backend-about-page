@@ -6,8 +6,8 @@ describe("Postgres About Page Repository", () => {
   const mock = {
     title: "Titulo About page",
     description: "Descrição about page",
-    avatarALT: "avatar alt",
-    avatarURL: "avatar url",
+    illustrationALT: "illustration alt",
+    illustrationURL: "illustration url",
   };
 
   const repository = new PostgresAboutPage();
@@ -29,8 +29,8 @@ describe("Postgres About Page Repository", () => {
     const newMock = {
       title: "New About page",
       description: "Descrição NEW about page",
-      avatarALT: "new avatar alt",
-      avatarURL: "new avatar url",
+      illustrationALT: "new illustration alt",
+      illustrationURL: "new illustration url",
     };
 
     await expect(updateAboutPage(newMock)).resolves.not.toThrowError();

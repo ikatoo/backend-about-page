@@ -4,15 +4,10 @@ import request from "supertest";
 import { describe, expect, test } from "vitest";
 
 import app from "../../app";
+import { aboutPageMock } from "@/shared/aboutPageMock";
 
 describe("Express - About Page", () => {
-  const mock: AboutPageWithSkills = {
-    title: "title test supertest",
-    description: "desc test supertest",
-    skills: [{ title: "docker" }, { title: "git" }, { title: "nodejs" }],
-    avatarURL: "avatar url",
-    avatarALT: "alt of the avatar",
-  };
+  const mock: AboutPageWithSkills = aboutPageMock
 
   test("should create about page", async () => {
     await postgres.none("delete from about_page");
@@ -28,8 +23,8 @@ describe("Express - About Page", () => {
     expect(aboutPage).toStrictEqual({
       title: mock.title,
       description: mock.description,
-      avatar_url: mock.avatarURL,
-      avatar_alt: mock.avatarALT,
+      illustration_url: mock.illustrationURL,
+      illustration_alt: mock.illustrationALT,
     });
     expect(skills).toStrictEqual(mock.skills);
   });
@@ -38,8 +33,8 @@ describe("Express - About Page", () => {
     const exist = await postgres.manyOrNone("select * from about_page");
     !exist &&
       (await postgres.none(
-        "insert into about_page (title,description, avatar_url, avatar_alt values ($1,$2,$3,$4)",
-        [mock.title, mock.description, mock.avatarURL, mock.avatarALT]
+        "insert into about_page (title,description, illustration_url, illustration_alt values ($1,$2,$3,$4)",
+        [mock.title, mock.description, mock.illustrationURL, mock.illustrationALT]
       ));
     const response = await request(app).get("/about").send();
     expect(response.status).toBe(200);
@@ -56,8 +51,8 @@ describe("Express - About Page", () => {
         { title: "reactjs" },
         { title: "vitest" },
       ],
-      avatarURL: "new avatar url",
-      avatarALT: "new alt",
+      illustrationURL: "new illustration url",
+      illustrationALT: "new alt",
     };
     const response = await request(app).put("/about").send(newAboutPage);
     const aboutPage = await postgres.one("select * from about_page");
@@ -69,8 +64,8 @@ describe("Express - About Page", () => {
     expect(aboutPage).toStrictEqual({
       title: newAboutPage.title,
       description: newAboutPage.description,
-      avatar_url: newAboutPage.avatarURL,
-      avatar_alt: newAboutPage.avatarALT,
+      illustration_url: newAboutPage.illustrationURL,
+      illustration_alt: newAboutPage.illustrationALT,
     });
     expect(skills).toStrictEqual(newAboutPage.skills);
   });

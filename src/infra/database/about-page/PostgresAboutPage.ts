@@ -13,8 +13,8 @@ export default class PostgresAboutPage implements IAboutPage {
     const mappedAboutPage: AboutPageWithoutSkills = {
       title: aboutPage.title,
       description: aboutPage.description,
-      avatarURL: aboutPage.avatar_url,
-      avatarALT: aboutPage.avatar_alt,
+      illustrationURL: aboutPage.illustration_url,
+      illustrationALT: aboutPage.illustration_alt,
     };
 
     return mappedAboutPage;
@@ -23,15 +23,15 @@ export default class PostgresAboutPage implements IAboutPage {
   async createAboutPage(page: AboutPageWithoutSkills): Promise<void> {
     await postgres.none("delete from about_page");
     await postgres.none(
-      "insert into about_page (title,description,avatar_url,avatar_alt) values ($1,$2,$3,$4)",
-      [page.title, page.description, page.avatarURL, page.avatarALT]
+      "insert into about_page (title,description,illustration_url,illustration_alt) values ($1,$2,$3,$4)",
+      [page.title, page.description, page.illustrationURL, page.illustrationALT]
     );
   }
 
   async updateAboutPage(page: AboutPageWithoutSkills): Promise<void> {
     await postgres.none(
-      "update about_page set title = $1, description = $2, avatar_url = $3, avatar_alt = $4",
-      [page.title, page.description, page.avatarURL, page.avatarALT]
+      "update about_page set title = $1, description = $2, illustration_url = $3, illustration_alt = $4",
+      [page.title, page.description, page.illustrationURL, page.illustrationALT]
     );
   }
 
