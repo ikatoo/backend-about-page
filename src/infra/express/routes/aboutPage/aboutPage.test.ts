@@ -7,7 +7,7 @@ import app from "../../app";
 import { aboutPageMock } from "@/shared/aboutPageMock";
 
 describe("Express - About Page", () => {
-  const mock: AboutPageWithSkills = aboutPageMock
+  const mock: AboutPageWithSkills = aboutPageMock;
 
   test("should create about page", async () => {
     await postgres.none("delete from about_page");
@@ -34,7 +34,12 @@ describe("Express - About Page", () => {
     !exist &&
       (await postgres.none(
         "insert into about_page (title,description, illustration_url, illustration_alt values ($1,$2,$3,$4)",
-        [mock.title, mock.description, mock.illustrationURL, mock.illustrationALT]
+        [
+          mock.title,
+          mock.description,
+          mock.illustrationURL,
+          mock.illustrationALT,
+        ]
       ));
     const response = await request(app).get("/about").send();
     expect(response.status).toBe(200);
@@ -77,6 +82,22 @@ describe("Express - About Page", () => {
       (await postgres.oneOrNone("select * from skills"));
 
     expect(response.status).toBe(204);
-    expect(exist).toBeNull()
+    expect(exist).toBeNull();
+  });
+
+  test("should return status code 400 when request without data", async () => {
+    const response = await request(app).post("/about").send();
+
+    expect(response.status).toBe(400);
+    expect(response.text).toMatch(/Data is required/);
+  });
+
+  test("should return status code 400 when request with bad data", async () => {
+    const response = await request(app)
+      .post("/about")
+      .send({ data: "anything" });
+
+    expect(response.status).toBe(400);
+    expect(response.text).toMatch(/Invalid request/);
   });
 });

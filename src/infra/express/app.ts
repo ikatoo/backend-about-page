@@ -1,10 +1,8 @@
-import "express-async-errors";
-
 import env from "@/env";
 import cors, { CorsOptions } from "cors";
 import express, { Request, Response } from "express";
 
-import { errorMiddleware } from "./middlewares/error";
+// import { errorMiddleware } from "./middlewares/error";
 import routes from "./routes";
 
 const app = express();
@@ -32,6 +30,6 @@ app.get("/", (_req: Request, res: Response) => {
 });
 
 // Error Handling
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
 
 export default app;
