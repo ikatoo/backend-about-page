@@ -4,7 +4,8 @@ import { AboutPageProps } from "@/domain/about-page/AboutPage";
 import { SkillProps } from "@/domain/skill/Skill";
 import PostgresAboutPage from "@/infra/database/about-page/PostgresAboutPage";
 import PostgresSkills from "@/infra/database/skills/PostgresSkills";
-import { Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
+import { BadRequestError } from "../../api-erros";
 
 export type AboutPageResponse = AboutPageProps & { skills?: SkillProps[] };
 
@@ -15,12 +16,24 @@ const skillsRepository = new PostgresSkills();
 
 const useCase = new AboutPage(aboutPageRepository, skillsRepository);
 
-aboutPageRoute.post("/about", async (req: Request, res: Response) => {
-  const aboutPage: AboutPageWithSkills = req.body;
-  await useCase.createAboutPage(aboutPage);
+aboutPageRoute.post(
+  "/about",
+  async (req: Request, res: Response, next: NextFunction) => {
+    if (!Object.keys(req.body).length) {
+      return next(new BadRequestError("Data is required."));
+    }
 
-  res.status(201).send();
-});
+    const { title, description, skills } = req.body;
+    if (!title || !description || !skills) {
+      return next(new BadRequestError("Invalid request."));
+    }
+
+    const aboutPage: AboutPageWithSkills = req.body;
+    await useCase.createAboutPage(aboutPage);
+
+    res.status(201).send();
+  }
+);
 
 aboutPageRoute.put("/about", async (req: Request, res: Response) => {
   await useCase.deleteAboutPage();
