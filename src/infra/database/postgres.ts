@@ -1,10 +1,9 @@
 import env from "@/env";
 import pgPromise from "pg-promise";
-import { IClient } from "pg-promise/typescript/pg-subset";
 
 const pgp = pgPromise({});
 const postgres = pgp({
-  host: env.POSTGRES_HOST,
+  host: env.NODE_ENV.includes("prod") ? env.POSTGRES_HOST : 'localhost',
   port: env.POSTGRES_PORT,
   database: env.POSTGRES_DB,
   user: env.POSTGRES_USER,
