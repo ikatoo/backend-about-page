@@ -2,7 +2,6 @@ import env from "@/env";
 import cors, { CorsOptions } from "cors";
 import express, { Request, Response } from "express";
 
-// import { errorMiddleware } from "./middlewares/error";
 import routes from "./routes";
 
 const app = express();
@@ -28,8 +27,5 @@ app.use(routes);
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).send("OK");
 });
-
-// Error Handling
-// app.use(errorMiddleware);
 
 export default app;

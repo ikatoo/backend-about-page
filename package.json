@@ -6,7 +6,7 @@
   "author": "Milton Carlos Katoo <mckatoo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node dist/infra/express/index.js",
+    "start": "yarn build && NODE_ENV=prod node dist/infra/express/index.js",
     "dev": "tsx watch src/infra/express/index.ts",
     "build": "tsup src",
     "typecheck": "tsc --project tsconfig-typecheck.json",
