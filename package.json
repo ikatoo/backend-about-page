@@ -13,8 +13,8 @@
     "test": "vitest --run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "docker:up": "docker compose up -d",
-    "docker:down": "docker compose down"
+    "docker:up:test": "docker compose -f docker-compose.test.yaml up -d",
+    "docker:down:test": "docker compose -f docker-compose.test.yaml down"
   },
   "devDependencies": {
     "@types/cors": "2.8.13",
