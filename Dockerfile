@@ -10,6 +10,8 @@ RUN npm ci
 
 COPY --chown=node:node . .
 
+RUN npm run build
+
 EXPOSE ${PORT}
 
 CMD [ "npm", "run", "start" ]
