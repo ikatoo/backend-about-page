@@ -29,16 +29,26 @@ aboutPageRoute.post(
     }
 
     const aboutPage: AboutPageWithSkills = req.body;
-    await useCase.createAboutPage(aboutPage);
+
+    try {
+      await useCase.createAboutPage(aboutPage);
+    } catch (error) {
+      if (error instanceof Error) return next(new Error(error.message))
+    }
 
     res.status(201).send();
   }
 );
 
-aboutPageRoute.put("/about", async (req: Request, res: Response) => {
+aboutPageRoute.put("/about", async (req: Request, res: Response, next: NextFunction) => {
   await useCase.deleteAboutPage();
   const aboutPage = req.body;
-  await useCase.createAboutPage(aboutPage);
+
+  try {
+    await useCase.createAboutPage(aboutPage);
+  } catch (error) {
+    if (error instanceof Error) return next(new Error(error.message))
+  }
 
   res.status(204).send();
 });
