@@ -1,5 +1,4 @@
-import env from "@/env";
-import cors, { CorsOptions } from "cors";
+import cors from "cors";
 import express, { Request, Response } from "express";
 
 import routes from "./routes";
@@ -7,15 +6,11 @@ import routes from "./routes";
 const app = express();
 app.use(express.json());
 
-if (env.NODE_ENV.includes("prod")) {
-  const corsOptions: CorsOptions = {
-    origin: /ikatoo\.com\.br$/,
-    methods: "GET,PUT,PATCH,POST,DELETE",
-  };
-  app.use(cors(corsOptions));
-} else {
-  app.use(cors());
-}
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use(express.urlencoded({ extended: true }));
 
