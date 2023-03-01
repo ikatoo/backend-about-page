@@ -8,7 +8,15 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
 
   app:
-    build: .
+    build:
+      context: .
+      args:
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        - POSTGRES_HOST=${POSTGRES_HOST}
+        - POSTGRES_PORT=${POSTGRES_PORT}
+        - POSTGRES_DB=${POSTGRES_DB}
+        - PORT=${PORT}
     depends_on:
       - postgres
     restart: on-failure:3
